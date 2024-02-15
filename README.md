@@ -7,12 +7,12 @@ To activate these completions, prepend the following to your `~/.zshrc` file:
 autoload -Uz compinit && compinit
 ```
 ### Setting Permissions
-Ensure the completion files are executable:
+Perform this on all completion files:
 ```bash
 chmod 644 _distrobox*
 ```
 ### Installation
-Completions can be installed in a couple of ways:
+Completions can be installed in a couple of ways.
 #### System-wide:
 Copy or symlink the completion files to:
 ```bash
