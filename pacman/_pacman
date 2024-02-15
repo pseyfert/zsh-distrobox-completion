@@ -1,0 +1,226 @@
+#compdef pacman
+
+_pacman() {
+    local -a commands
+    commands=(
+        {-D,--database}'[modify package database]:operation:->database'
+        {-F,--files}'[query the files database]:operation:->files'
+        {-Q,--query}'[query the package database]:operation:->query'
+        {-R,--remove}'[remove packages]:operation:->remove'
+        {-S,--sync}'[synchronize packages]:operation:->sync'
+        {-T,--deptest}'[check dependencies]:operation:->deptest'
+        {-U,--upgrade}'[upgrade packages]:operation:->upgrade'
+        {-h,--help}'[show help]'
+        {-V,--version}'[show version]'
+    )
+
+    _arguments -s $commands[@] && return
+
+    case $state in
+        database)
+            _arguments ':operation:->database' \
+                '-b+[set an alternate database location]:path:_files' \
+                '-k[test local database for validity]' \
+                '-q[suppress output of success messages]' \
+                '-r+[set an alternate installation root]:path:_files' \
+                '-v[be verbose]' \
+                '--arch=[set an alternate architecture]' \
+                '--asdeps[mark packages as non-explicitly installed]' \
+                '--asexplicit[mark packages as explicitly installed]' \
+                '--cachedir=[set an alternate package cache location]:dir:_files' \
+                '--color=[colorize the output]:when:(always never auto)' \
+                '--config=[set an alternate configuration file]:path:_files' \
+                '--confirm[always ask for confirmation]' \
+                '--debug[display debug messages]' \
+                '--disable-download-timeout[use relaxed timeouts for download]' \
+                '--gpgdir=[set an alternate home directory for GnuPG]:path:_files' \
+                '--hookdir=[set an alternate hook location]:dir:_files' \
+                '--logfile=[set an alternate log file]:path:_files' \
+                '--noconfirm[do not ask for any confirmation]' \
+                '--sysroot=[operate on a mounted guest system]:path:_files'
+            ;;
+    esac
+    case $state in
+        files)
+            _arguments ':operation:->files' \
+                '-b+[set an alternate database location]:path:_files' \
+                '-q[suppress output of success messages]' \
+                '-r+[set an alternate installation root]:path:_files' \
+                '-v[be verbose]' \
+                '--cachedir=[set an alternate package cache location]:dir:_files' \
+                '--color=[colorize the output]:when:(always never auto)' \
+                '--config=[set an alternate configuration file]:path:_files' \
+                '--confirm[always ask for confirmation]' \
+                '--debug[display debug messages]' \
+                '--disable-download-timeout[use relaxed timeouts for download]' \
+                '--gpgdir=[set an alternate home directory for GnuPG]:path:_files' \
+                '--hookdir=[set an alternate hook location]:dir:_files' \
+                '--logfile=[set an alternate log file]:path:_files' \
+                '--noconfirm[do not ask for any confirmation]' \
+                '--sysroot=[operate on a mounted guest system]:path:_files'
+            ;;
+    esac
+    case $state in
+        query)
+            _arguments ':operation:->query' \
+                '-b+[set an alternate database location]:path:_files' \
+                '-c[view the changelog of a package]' \
+                '-d[list packages installed as dependencies]:filter:' \
+                '-e[list packages explicitly installed]:filter:' \
+                '-g[view all members of a package group]:group name:' \
+                '-i[view package information]' \
+                '-k[check that package files exist]:package:_pacman_packages' \
+                '-l[list the files owned by the queried package]' \
+                '-m[list installed packages not found in sync db(s)]:filter:' \
+                '-n[list installed packages only found in sync db(s)]:filter:' \
+                '-o[query the package that owns <file>]:file:_files' \
+                '-p[query a package file instead of the database]:package file:_files' \
+                '-q[show less information for query and search]' \
+                '-r+[set an alternate installation root]:path:_files' \
+                '-s[search locally-installed packages for matching strings]:string:' \
+                '-t[list packages not required by any package]:filter:' \
+                '-u[list outdated packages]:filter:' \
+                '-v[be verbose]' \
+                '--arch=[set an alternate architecture]' \
+                '--cachedir=[set an alternate package cache location]:dir:_files' \
+                '--color=[colorize the output]:when:(always never auto)' \
+                '--config=[set an alternate configuration file]:path:_files' \
+                '--confirm[always ask for confirmation]' \
+                '--debug[display debug messages]' \
+                '--disable-download-timeout[use relaxed timeouts for download]' \
+                '--gpgdir=[set an alternate home directory for GnuPG]:path:_files' \
+                '--hookdir=[set an alternate hook location]:dir:_files' \
+                '--logfile=[set an alternate log file]:path:_files' \
+                '--noconfirm[do not ask for any confirmation]' \
+                '--sysroot=[operate on a mounted guest system]:path:_files'
+            ;;
+    esac
+    case $state in
+        remove)
+            _arguments ':operation:->remove' \
+                '-c[cascade remove packages and all packages that depend on them]' \
+                '-d[skip dependency version checks (-dd to skip all checks)]' \
+                '-n[remove configuration files]' \
+                '-p[print the targets instead of performing the operation]' \
+                '-r+[set an alternate installation root]:path:_files' \
+                '-s[remove unnecessary dependencies (-ss includes explicitly installed dependencies)]' \
+                '-u[remove unneeded packages]' \
+                '-v[be verbose]' \
+                '--arch=[set an alternate architecture]' \
+                '--assume-installed=[add a virtual package to satisfy dependencies]:package version:' \
+                '--cachedir=[set an alternate package cache location]:dir:_files' \
+                '--color=[colorize the output]:when:(always never auto)' \
+                '--config=[set an alternate configuration file]:path:_files' \
+                '--confirm[always ask for confirmation]' \
+                '--dbonly[only modify database entries, not package files]' \
+                '--debug[display debug messages]' \
+                '--disable-download-timeout[use relaxed timeouts for download]' \
+                '--gpgdir=[set an alternate home directory for GnuPG]:path:_files' \
+                '--hookdir=[set an alternate hook location]:dir:_files' \
+                '--logfile=[set an alternate log file]:path:_files' \
+                '--noconfirm[do not ask for any confirmation]' \
+                '--noprogressbar[do not show a progress bar when downloading files]' \
+                '--noscriptlet[do not execute the install scriptlet if one exists]' \
+                '--print-format=[specify how the targets should be printed]:format string:' \
+                '--sysroot=[operate on a mounted guest system]:path:_files'
+            ;;
+    esac
+    case $state in
+        sync)
+            _arguments ':operation:->sync' \
+                '-b+[set an alternate database location]:path:_files' \
+                '-c[clean the cache directory by removing old packages (-cc for all)]' \
+                '-d[skip dependency version checks (-dd to skip all checks)]' \
+                '-g[view all members of a package group (-gg for all groups)]' \
+                '-i[view package information (-ii for extended information)]' \
+                '-l[list packages in a repo]:repo name:' \
+                '-p[print the targets instead of performing the operation]' \
+                '-q[show less information for query and search]' \
+                '-r+[set an alternate installation root]:path:_files' \
+                '-s[search remote repositories for matching strings]:string:' \
+                '-u[upgrade installed packages (-uu enables downgrades)]' \
+                '-v[be verbose]' \
+                '-w[download packages but do not install/upgrade anything]' \
+                '-y[refresh package databases (-yy forces a refresh even if up to date)]' \
+                '--arch=[set an alternate architecture]' \
+                '--asdeps[install packages as non-explicitly installed]' \
+                '--asexplicit[install packages as explicitly installed]' \
+                '--assume-installed=[add a virtual package to satisfy dependencies]:package version:' \
+                '--cachedir=[set an alternate package cache location]:dir:_files' \
+                '--color=[colorize the output]:when:(always never auto)' \
+                '--config=[set an alternate configuration file]:path:_files' \
+                '--confirm[always ask for confirmation]' \
+                '--dbonly[only modify database entries, not package files]' \
+                '--debug[display debug messages]' \
+                '--disable-download-timeout[use relaxed timeouts for download]' \
+                '--gpgdir=[set an alternate home directory for GnuPG]:path:_files' \
+                '--hookdir=[set an alternate hook location]:dir:_files' \
+                '--ignore=[ignore a package upgrade]:package name:' \
+                '--ignoregroup=[ignore a group upgrade]:group name:' \
+                '--logfile=[set an alternate log file]:path:_files' \
+                '--needed[do not reinstall up to date packages]' \
+                '--noconfirm[do not ask for any confirmation]' \
+                '--noprogressbar[do not show a progress bar when downloading files]' \
+                '--noscriptlet[do not execute the install scriptlet if one exists]' \
+                '--overwrite=[overwrite conflicting files]:glob pattern:' \
+                '--print-format=[specify how the targets should be printed]:format string:' \
+                '--sysroot=[operate on a mounted guest system]:path:_files'
+            ;;
+    esac
+    case $state in
+        deptest)
+            _arguments ':operation:->deptest' \
+                '-b+[set an alternate database location]:path:_files' \
+                '-r+[set an alternate installation root]:path:_files' \
+                '-v[be verbose]' \
+                '--arch=[set an alternate architecture]' \
+                '--cachedir=[set an alternate package cache location]:dir:_files' \
+                '--color=[colorize the output]:when:(always never auto)' \
+                '--config=[set an alternate configuration file]:path:_files' \
+                '--confirm[always ask for confirmation]' \
+                '--debug[display debug messages]' \
+                '--disable-download-timeout[use relaxed timeouts for download]' \
+                '--gpgdir=[set an alternate home directory for GnuPG]:path:_files' \
+                '--hookdir=[set an alternate hook location]:dir:_files' \
+                '--logfile=[set an alternate log file]:path:_files' \
+                '--noconfirm[do not ask for any confirmation]' \
+                '--sysroot=[operate on a mounted guest system]:path:_files'
+            ;;
+    esac
+    case $state in
+        upgrade)
+            _arguments ':operation:->upgrade' \
+                '-b+[set an alternate database location]:path:_files' \
+                '-d[skip dependency version checks (-dd to skip all checks)]' \
+                '-r+[set an alternate installation root]:path:_files' \
+                '-v[be verbose]' \
+                '-w[download packages but do not install/upgrade anything]' \
+                '--arch=[set an alternate architecture]' \
+                '--asdeps[install packages as non-explicitly installed]' \
+                '--asexplicit[install packages as explicitly installed]' \
+                '--assume-installed=[add a virtual package to satisfy dependencies]:package version:' \
+                '--cachedir=[set an alternate package cache location]:dir:_files' \
+                '--color=[colorize the output]:when:(always never auto)' \
+                '--config=[set an alternate configuration file]:path:_files' \
+                '--confirm[always ask for confirmation]' \
+                '--dbonly[only modify database entries, not package files]' \
+                '--debug[display debug messages]' \
+                '--disable-download-timeout[use relaxed timeouts for download]' \
+                '--gpgdir=[set an alternate home directory for GnuPG]:path:_files' \
+                '--hookdir=[set an alternate hook location]:dir:_files' \
+                '--ignore=[ignore a package upgrade]:package name:' \
+                '--ignoregroup=[ignore a group upgrade]:group name:' \
+                '--logfile=[set an alternate log file]:path:_files' \
+                '--needed[do not reinstall up to date packages]' \
+                '--noconfirm[do not ask for any confirmation]' \
+                '--noprogressbar[do not show a progress bar when downloading files]' \
+                '--noscriptlet[do not execute the install scriptlet if one exists]' \
+                '--overwrite=[overwrite conflicting files]:glob pattern:' \
+                '--print-format=[specify how the targets should be printed]:format string:' \
+                '--sysroot=[operate on a mounted guest system]:path:_files'
+            ;;
+    esac
+}
+
+_pacman "$@"
+

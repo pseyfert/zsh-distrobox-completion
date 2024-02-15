@@ -1,0 +1,27 @@
+#compdef genfstab
+
+local curcontext="$curcontext" state line
+typeset -A opt_args
+
+_genfstab_options() {
+  local -a options
+  options=(
+    '-f:Restrict output to mountpoints matching the prefix FILTER: _files'
+    '-L:Use labels for source identifiers (shortcut for -t LABEL)'
+    '-p:Exclude pseudofs mounts (default behavior)'
+    '-P:Include pseudofs mounts'
+    '-t:Use TAG for source identifiers:(
+        LABEL
+        UUID
+        PARTLABEL
+        PARTUUID
+      )'
+    '-U:Use UUIDs for source identifiers (shortcut for -t UUID)'
+    '-h:Print this help message'
+  )
+  _describe -t options 'genfstab option' options
+}
+
+_arguments -C \
+  '1: :_genfstab_options' \
+  '*:: :->args'
