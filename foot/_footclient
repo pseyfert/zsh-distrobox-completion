@@ -1,0 +1,29 @@
+#compdef footclient
+
+_footclient() {
+    local arguments=(
+        '-t[set TERM environment variable]:TERM:'
+        '-T[set initial window title]:title:'
+        '-a[set window application ID]:application ID:'
+        '-w[set initial window size in pixels]:WIDTHxHEIGHT:'
+        '-W[set initial window size in characters]:WIDTHxHEIGHT:'
+        '-m[start in maximized mode]'
+        '-F[start in fullscreen mode]'
+        '-L[start shell as a login shell]'
+        '-D[set directory to start in]:directory:_directories'
+        '-s[specify server socket path]:server socket path:_files'
+        '-H[remain open after child process exits]'
+        '-N[detach the client process from the terminal]'
+        '-o[override configuration option]:configuration option:'
+        '-E[exec shell using footclients environment]'
+        '-d[set log level]:log level:(info warning error none)'
+        '-l[enable/disable colorization of log output]:colorization:(never always auto)'
+        '-v[show the version number and quit]'
+        '-e[ignored for compatibility with xterm -e]'
+    )
+
+    _arguments $arguments
+}
+
+_footclient "$@"
+
