@@ -1,6 +1,6 @@
 #compdef distrobox-create
 
-source ${fpath[@]}_distrobox_shared_functions
+source /usr/share/zsh/site-functions/_distrobox_shared_functions
 
 _distrobox-create() {
     local -a options

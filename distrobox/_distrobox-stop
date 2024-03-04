@@ -1,6 +1,6 @@
 #compdef distrobox-stop
 
-source ${fpath[@]}_distrobox_shared_functions
+source /usr/share/zsh/site-functions/_distrobox_shared_functions
 
 _distrobox-stop() {
     local expl
