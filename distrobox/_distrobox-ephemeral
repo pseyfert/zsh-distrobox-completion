@@ -6,6 +6,7 @@ _distrobox-ephemeral() {
     local -a options
     local state_descriptions
     local curcontext="$curcontext"
+    local state
 
     options=(
         '(-i --image)'{-i,--image}'[Specify image to use for the container]:image:_distrobox_images'
