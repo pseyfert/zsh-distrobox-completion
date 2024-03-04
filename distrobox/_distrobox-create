@@ -2,7 +2,7 @@
 
 source ${fpath[@]}_distrobox_shared_functions
 
-_distrobox_create_completion() {
+_distrobox-create() {
     local -a options
     local state_descriptions
     local curcontext="$curcontext"
@@ -55,4 +55,4 @@ _distrobox_create_completion() {
     esac
 }
 
-_distrobox_create_completion
+_distrobox-create
