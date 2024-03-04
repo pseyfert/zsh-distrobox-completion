@@ -2,7 +2,7 @@
 
 source ${fpath[@]}_distrobox_shared_functions
 
-_distrobox_enter_completion() {
+_distrobox-enter() {
     local -a options
     local expl
     options=(
@@ -33,4 +33,4 @@ _distrobox_enter_completion() {
     esac
 }
 
-_distrobox_enter_completion
+_distrobox-enter
