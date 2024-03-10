@@ -1,6 +1,7 @@
 #compdef distrobox-export
 
-_arguments -s \
+_message -r "Export an app or a binary from the container to the host."
+_arguments \
   '(--app -a)'{-a,--app}'[name of the application to export]:application name:' \
   '(--bin -b)'{-b,--bin}'[absolute path of the binary to export]:path to binary:_files' \
   '(--delete -d)'{-d,--delete}'[delete exported application or binary]' \

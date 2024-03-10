@@ -1,10 +1,14 @@
 #compdef distrobox-stop
-
+# This uses the same logic as distrobox-rm
 source /usr/share/zsh/site-functions/_distrobox_shared_functions
 
 _distrobox-stop() {
     local expl
     local -a options
+    local _db_rcc
+
+     _db_rcc=($(distrobox list | awk -F'|' '$3 ~ /Up/ { gsub(/^[ \t]+|[ \t]+$/, "", $2); print $2 }'))                                                                     
+
     options=(
         '(-a --all)'{-a,--all}'[stop all distroboxes]'
         '(-Y --yes)'{-Y,--yes}'[non-interactive, stop without asking]'
@@ -13,8 +17,17 @@ _distrobox-stop() {
         '(-v --verbose)'{-v,--verbose}'[show more verbosity]'
         '(-V --version)'{-V,--version}'[show version]'
     )
-    _arguments -s : $options[@] \
-        '*:container name:_distrobox_running_containers' && return 0
+
+    _message -r "Stop running distrobox containers."
+    if [[ -n "$_db_rcc" ]]; then
+      _arguments -C \
+        '*:containers:_distrobox_running_containers' \
+        $options[@]
+    else
+      _message -r "No running containers."
+      _arguments $options[@]
+    fi
+
 }
 
 _distrobox-stop

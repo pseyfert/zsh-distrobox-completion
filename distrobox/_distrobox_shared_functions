@@ -1,5 +1,6 @@
  # _distrobox_shared_functions                                                                                                                                                
-                                                                                                                                                                              
+ # These are used for dynamic completions
+
  _distrobox_containers() {                                                                                                                                                    
      local -a containers                                                                                                                                                      
      containers=("${(@f)$(distrobox list | sed 1d | awk -F'|' '{print $2}' | sed 's/^[ \t]*//;s/[ \t]*$//')}")                                                                

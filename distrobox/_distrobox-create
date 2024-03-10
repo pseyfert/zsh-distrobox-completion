@@ -1,13 +1,13 @@
 #compdef distrobox-create
-
+# First make the _distrobox_images function available to the script
+# the --image optarg uses it to complete the list compatible OCIs
 source /usr/share/zsh/site-functions/_distrobox_shared_functions
 
 _distrobox-create() {
     local -a options
-    local state_descriptions
-    local curcontext="$curcontext"
+    local expl
     local state
-
+    # Array of optargs to pass to _arguments for matching and completion
     options=(
         '(-i --image)'{-i,--image}'[Specify image to use for the container]:image:_distrobox_images'
         '(-n --name)'{-n,--name}'[Specify name for the distrobox]:distrobox name:'
@@ -38,22 +38,11 @@ _distrobox-create() {
         '(-V --version)'{-V,--version}'[Show version]'
         '--absolutely-disable-root-password-i-am-really-positively-sure[Skip user password setup, leaving it blank]'
     )
-
-    _arguments -C -s \
-      '1: :->container' \
-      '*::options:->options' \
-      $options[@]
-
-    case $state in
-      container)
-        if (( CURRENT == 2 )); then
-          _message 'container name or option'
-        fi
-        ;;
-      options)
-        _arguments $options[@]
-        ;;
-    esac
+        _message -r "Create a distrobox container."
+        # Match either a container name or an option
+        _arguments -C \
+          '*:options:->opt_or_con' \
+          $options[@]
 }
 
 _distrobox-create

@@ -1,9 +1,14 @@
 #compdef distrobox-upgrade
-
+# This uses the same logic as distrobox-rm
 source /usr/share/zsh/site-functions/_distrobox_shared_functions
 
 _distrobox-upgrade() {
+    local expl
     local -a options
+    local _db_cc
+
+    _db_cc=("${(@f)$(distrobox list | sed 1d | awk -F'|' '{print $2}' | sed 's/^[ \t]*//;s/[ \t]*$//')}")
+    
     options=(
         '(-a --all)'{-a,--all}'[upgrade all distroboxes]'
         '--running[perform only for running distroboxes]'
@@ -13,8 +18,16 @@ _distrobox-upgrade() {
         '(-V --version)'{-V,--version}'[show version]'
     )
 
-    _arguments -s : $options[@] \
-        '*:container name:_distrobox_containers' && return 0
+    _message -r "Upgrade distroboxes using container's package manager."
+    if [[ -n "$_db_cc" ]]; then
+      _arguments \
+        '*:container:_distrobox_containers' \
+        $options[@]
+    else
+      _message -r "No containers exist."
+      _arguments $options[@]
+    fi
+
 }
 
 _distrobox-upgrade

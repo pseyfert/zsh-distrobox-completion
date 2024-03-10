@@ -3,8 +3,13 @@
 source /usr/share/zsh/site-functions/_distrobox_shared_functions
 
 _distrobox-rm() {
+    # expl is an internal zsh array that gets passed to _arguments bts
     local expl
     local -a options
+    local _db_cc
+    # Check for existing containers and store the result into var _db_cc
+    _db_cc=("${(@f)$(distrobox list | sed 1d | awk -F'|' '{print $2}' | sed 's/^[ \t]*//;s/[ \t]*$//')}")
+    # Array of optargs to pass to _arguments for matching and completion
     options=(
         '(-a --all)'{-a,--all}'[delete all distroboxes]'
         '(-f --force)'{-f,--force}'[force deletion]'
@@ -14,8 +19,19 @@ _distrobox-rm() {
         '(-v --verbose)'{-v,--verbose}'[show more verbosity]'
         '(-V --version)'{-V,--version}'[show version]'
     )
-    _arguments -s : $options[@] \
-        '*:container name:_distrobox_containers' && return 0
+    _message -r "Delete one or more distroboxes."
+    # If containers exist then do an action
+    if [[ -n "$_db_cc" ]]; then
+      # Match both container names and optargs
+      _arguments \
+        '*:containers:_distrobox_containers' \
+        $options[@]
+    # If no containers exist then do an action
+    else
+      # Display message to user and match optargs only
+      _message -r "No containers exist."
+      _arguments $options[@]
+    fi
 
 }
 
