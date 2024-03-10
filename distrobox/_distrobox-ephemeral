@@ -38,11 +38,25 @@ _distrobox-ephemeral() {
         '(-V --version)'{-V,--version}'[Show version]'
         '--absolutely-disable-root-password-i-am-really-positively-sure[Skip user password setup, leaving it blank]'
     )
-        _message -r "Create a temporary distrobox that is automatically deleted."
-        # Match either a container name or an option
+        _message -r "Create new distroboxes."
+        # Using states to handle the logic
         _arguments -C \
-          '*:options:->opt_or_con' \
+          '1:container:->container' \
+          '*:options:->options' \
           $options[@]
+        case $state in
+          container)
+          #_message -r "Debug: case is container"
+          # No completions necessary on new container
+          # Next tab completion will set state options
+            ;;
+          options)
+          #_message -r "Debug: case is options"
+          # Case options always shows optargs
+            _arguments \
+              $options[@]
+            ;;
+        esac
 }
 
 _distrobox-ephemeral
