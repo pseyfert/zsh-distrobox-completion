@@ -39,7 +39,7 @@ _distrobox-ephemeral() {
         '--absolutely-disable-root-password-i-am-really-positively-sure[Skip user password setup, leaving it blank]'
     )
     # Simple logic
-    _message -r "Create new distroboxes."
+    _message -r "Create a temporary distrobox that is automatically destroyed."
     _arguments \
       '1:containers:->container' \
       '*:options:->options' \
