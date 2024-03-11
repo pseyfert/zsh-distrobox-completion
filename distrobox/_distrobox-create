@@ -9,10 +9,11 @@ for _fp_ai in $fpath[@]
   do
     if [[ -f $_fp_ai/_distrobox_shared_functions ]] then
       _db_sf_path="$_fp_ai/_distrobox_shared_functions"
+      break
     fi
   done
 
-source $_db_sf_path
+[[ -n $_db_sf_path ]] && source $_db_sf_path
 
 _distrobox-create() {
     local -a options
