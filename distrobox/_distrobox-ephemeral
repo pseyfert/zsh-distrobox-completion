@@ -1,7 +1,18 @@
 #compdef distrobox-ephemeral
 # First make the _distrobox_images function available to the script
 # the --image optarg uses it to complete the list compatible OCIs
-source /usr/share/zsh/site-functions/_distrobox_shared_functions
+# check all fpath array items for the shared functions file
+local _fp_ai
+local _db_sf_path
+
+for _fp_ai in $fpath[@]
+  do
+    if [[ -f $_fp_ai/_distrobox_shared_functions ]] then
+      _db_sf_path="$_fp_ai/_distrobox_shared_functions"
+    fi
+  done
+
+source $_db_sf_path
 
 _distrobox-ephemeral() {
     local -a options
@@ -39,7 +50,7 @@ _distrobox-ephemeral() {
         '--absolutely-disable-root-password-i-am-really-positively-sure[Skip user password setup, leaving it blank]'
     )
     # Simple logic
-    _message -r "Create a temporary distrobox that is automatically destroyed."
+    _message -r "Create temporary distroboxes that are auto destroyed."
     _arguments \
       '1:containers:->container' \
       '*:options:->options' \

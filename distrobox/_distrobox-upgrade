@@ -1,6 +1,17 @@
 #compdef distrobox-upgrade
 # This uses the same logic as distrobox-rm
-source /usr/share/zsh/site-functions/_distrobox_shared_functions
+
+local _fp_ai
+local _db_sf_path
+
+for _fp_ai in $fpath[@]
+  do
+    if [[ -f $_fp_ai/_distrobox_shared_functions ]] then
+      _db_sf_path="$_fp_ai/_distrobox_shared_functions"
+    fi
+  done
+
+source $_db_sf_path
 
 _distrobox-upgrade() {
     local expl
