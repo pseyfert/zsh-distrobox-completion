@@ -21,7 +21,7 @@ _distrobox-upgrade() {
     _message -r "Upgrade distroboxes using container's package manager."
     if [[ -n "$_db_cc" ]]; then
       _arguments \
-        '*:container:_distrobox_containers' \
+        '*:containers:_distrobox_containers' \
         $options[@]
     else
       _message -r "No containers exist."
