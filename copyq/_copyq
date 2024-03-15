@@ -1,0 +1,46 @@
+#compdef copyq
+
+function _copyq {
+  local -a commands
+  commands=(
+    'start-server:Start server if no command is specified'
+    'show:Show main window and optionally open tab with given name'
+    'hide:Hide main window'
+    'toggle:Show or hide main window'
+    'menu:Open context menu'
+    'exit:Exit server'
+    'disable:Disable clipboard content storing'
+    'enable:Enable clipboard content storing'
+    'clipboard:Print clipboard content'
+    'selection:Print X11 selection content'
+    'paste:Paste clipboard to current window'
+    'copy:Copy clipboard or set clipboard text/content'
+    'count:Print amount of items in current tab'
+    'select:Copy item in the row to clipboard'
+    'next:Copy next item from current tab to clipboard'
+    'previous:Copy previous item from current tab to clipboard'
+    'add:Add text into clipboard'
+    'insert:Insert text into given row'
+    'remove:Remove items in given rows'
+    'edit:Edit items or edit new one'
+    'separator:Set separator for items on output'
+    'read:Print raw data of clipboard or item in row'
+    'write:Write raw data to given row'
+    'action:Show action dialog or run program on item text'
+    'popup:Show tray popup message'
+    'tab:List available tab names or run command on tab'
+    'removetab:Remove tab'
+    'renametab:Rename tab'
+    'exporttab:Export items to file'
+    'importtab:Import items from file'
+    'config:List all options, get or set option value'
+    'eval:Evaluate script'
+    'session:Starts or connects to application instance'
+    'help:Print help for command or all commands'
+    'version:Print version of program and libraries'
+  )
+
+  _arguments -s -S \
+    ':command:((start-server show hide toggle menu exit disable enable clipboard selection paste copy count select next previous add insert remove edit separator read read\ mime\ types write action popup tab removetab renametab exporttab importtab config eval session help version))' \
+    '*::arg:->args'
+}
