@@ -1,0 +1,48 @@
+#compdef tldr
+
+local -a options
+local -a commands
+local commands_cache="${HOME}/.cache/tldr_commands_cache"
+local cache_timestamp="${commands_cache}.timestamp"
+
+options=(
+  '--help[show help message and exit]'
+  '--version[show program version and exit]'
+  '--search[search for a specific command from a query]:query:'
+  '--update_cache[update the local cache of pages and exit]'
+  '--platform[override the operating system]:platform:(linux osx sunos windows common)'
+  '--list[list all available commands for operating system]'
+  '--source[override the default page source]:source:'
+  '--color[override color stripping]'
+  '--render[render local markdown files]'
+  '--language[override the default language]:language:'
+  '--markdown[just print the plain page file]'
+  '--print-completion[print shell completion script]:shell:(bash zsh tcsh)'
+)
+
+# Ensure cache and timestamp file existance and update if necessary
+if [[ ! -e $commands_cache ]] || [[ ! -e $cache_timestamp ]] || (( $(date +%s) - $(<${cache_timestamp}) > 3600 )); then
+  commands=(${(f)"$(for dir in ${(s.:.)PATH}; do
+    if [[ -d $dir ]]; then
+      ls -l $dir 2>/dev/null | awk '{print $NF}'
+    fi
+  done | sort -u)"})
+  print -l $commands >| ${commands_cache}
+  print $(date +%s) >| ${cache_timestamp}
+else
+  commands=("${(@f)$(<${commands_cache})}")
+fi
+
+_arguments \
+  '1: :->cmds' \
+  '*::options:->opts' && return 0
+
+case $state in
+  cmds)
+    _describe -t commands 'installed commands' commands && ret=0
+    ;;
+  opts)
+    _arguments $options
+    ;;
+esac
+
