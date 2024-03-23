@@ -1,0 +1,37 @@
+#compdef interpreter
+
+_arguments \
+  '(-h --help)'{-h,--help}'[show help message and exit]' \
+  '(-p --profile)'{-p,--profile}'[name of profile]:profile name:_files' \
+  '(-ci --custom_instructions)'{-ci,--custom_instructions}'[custom instructions for the language model]:custom instructions:' \
+  '(-s --system_message)'{-s,--system_message}'[base prompt for the language model]:system message:' \
+  '(-y --auto_run)'{-y,--auto_run}'[automatically run generated code]' \
+  '(-v --verbose)'{-v,--verbose}'[print detailed logs]' \
+  '(-m --model)'{-m,--model}'[language model to use]:model:' \
+  '(-t --temperature)'{-t,--temperature}'[optional temperature setting for the language model]:temperature:' \
+  '(-lsv --llm_supports_vision --no-llm_supports_vision)'{-lsv,--llm_supports_vision,--no-llm_supports_vision}'[inform OI that your model supports vision]' \
+  '(-lsf --llm_supports_functions --no-llm_supports_functions)'{-lsf,--llm_supports_functions,--no-llm_supports_functions}'[inform OI that your model supports OpenAI-style functions]' \
+  '(-cw --context_window)'{-cw,--context_window}'[optional context window size for the language model]:context window:' \
+  '(-x --max_tokens)'{-x,--max_tokens}'[optional maximum number of tokens for the language model]:max tokens:' \
+  '(-b --max_budget)'{-b,--max_budget}'[optionally set the max budget (in USD) for your llm calls]:max budget:' \
+  '(-ab --api_base)'{-ab,--api_base}'[optionally set the API base URL for your llm calls]:API base URL:' \
+  '(-ak --api_key)'{-ak,--api_key}'[optionally set the API key for your llm calls]:API key:' \
+  '(-av --api_version)'{-av,--api_version}'[optionally set the API version for your llm calls]:API version:' \
+  '(-xo --max_output)'{-xo,--max_output}'[optional maximum number of characters for code outputs]:max output:' \
+  '(-fc --force_task_completion)'{-fc,--force_task_completion}'[runs OI in a loop, requiring it to admit to completing/failing task]' \
+  '(-dt --disable_telemetry)'{-dt,--disable_telemetry}'[disables sending of basic anonymous usage stats]' \
+  '(-o --offline)'{-o,--offline}'[turns off all online features except the language model, if its hosted]' \
+  '(-sm --speak_messages)'{-sm,--speak_messages}'[use the applescript say command to read messages aloud (Mac only, experimental)]' \
+  '(-safe --safe_mode)'{-safe,--safe_mode}'[optionally enable safety mechanisms like code scanning]:safe mode:(off ask auto)' \
+  '(-debug --debug)'{-debug,--debug}'[debug mode for open interpreter developers]' \
+  '(-f --fast)'{-f,--fast}'[runs `interpreter --model gpt-3.5-turbo` and asks OI to be extremely concise]' \
+  '(-ml --multi_line)'{-ml,--multi_line}'[enable multi-line inputs starting and ending with ```]' \
+  '(-l --local)'{-l,--local}'[experimentally run the LLM locally via Llamafile]' \
+  '(-vi --vision)'{-vi,--vision}'[experimentally use vision for supported languages]' \
+  '(-os --os)'{-os,--os}'[experimentally let Open Interpreter control your mouse and keyboard]' \
+  '--reset_profile[reset a profile file]:reset profile:_files' \
+  '--profiles[opens profiles directory]' \
+  '--local_models[opens local models directory]' \
+  '--conversations[list conversations to resume]' \
+  '--server[start open interpreter as a server]' \
+  '--version[get Open Interpreters version number]'
