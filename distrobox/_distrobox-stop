@@ -1,25 +1,8 @@
 #compdef distrobox-stop
-# This uses the same logic as distrobox-rm
-
-local _fp_ai
-local _db_sf_path
-
-for _fp_ai in $fpath[@]
-  do
-    if [[ -f $_fp_ai/_distrobox_shared_functions ]] then
-      _db_sf_path="$_fp_ai/_distrobox_shared_functions"
-      break
-    fi
-  done
-
-[[ -n $_db_sf_path ]] && source $_db_sf_path
 
 _distrobox-stop() {
     local expl
     local -a options
-    local _db_rcc
-
-     _db_rcc=($(distrobox list | awk -F'|' '$3 ~ /Up/ { gsub(/^[ \t]+|[ \t]+$/, "", $2); print $2 }'))                                                                     
 
     options=(
         '(-a --all)'{-a,--all}'[stop all distroboxes]'
@@ -31,14 +14,9 @@ _distrobox-stop() {
     )
 
     _message -r "Stop running distrobox containers."
-    if [[ -n "$_db_rcc" ]]; then
-      _arguments -C \
-        '*:containers:_distrobox_running_containers' \
-        $options[@]
-    else
-      _message -r "No running containers."
-      _arguments $options[@]
-    fi
+    _arguments -C \
+      '*:containers:_distrobox_running_containers' \
+      $options[@]
 
 }
 

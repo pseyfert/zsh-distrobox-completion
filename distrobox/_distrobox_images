@@ -1,0 +1,5 @@
+#autoload
+
+local -a images
+images=("${(@f)$(distrobox-create --compatibility | awk 'NF {print $0}')}")
+_wanted images expl 'compatible image' compadd -a images

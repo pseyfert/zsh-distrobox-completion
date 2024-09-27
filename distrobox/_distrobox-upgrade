@@ -1,25 +1,8 @@
 #compdef distrobox-upgrade
-# This uses the same logic as distrobox-rm
-
-local _fp_ai
-local _db_sf_path
-
-for _fp_ai in $fpath[@]
-  do
-    if [[ -f $_fp_ai/_distrobox_shared_functions ]] then
-      _db_sf_path="$_fp_ai/_distrobox_shared_functions"
-      break
-    fi
-  done
-
-[[ -n $_db_sf_path ]] && source $_db_sf_path
 
 _distrobox-upgrade() {
     local expl
     local -a options
-    local _db_cc
-
-    _db_cc=("${(@f)$(distrobox list | sed 1d | awk -F'|' '{print $2}' | sed 's/^[ \t]*//;s/[ \t]*$//')}")
     
     options=(
         '(-a --all)'{-a,--all}'[upgrade all distroboxes]'
@@ -31,14 +14,9 @@ _distrobox-upgrade() {
     )
 
     _message -r "Upgrade distroboxes using container's package manager."
-    if [[ -n "$_db_cc" ]]; then
-      _arguments \
-        '*:containers:_distrobox_containers' \
-        $options[@]
-    else
-      _message -r "No containers exist."
-      _arguments $options[@]
-    fi
+    _arguments \
+      '*:containers:_distrobox_containers' \
+      $options[@]
 
 }
 

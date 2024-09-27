@@ -1,0 +1,8 @@
+#autoload
+
+local -a containers
+containers=("${(@f)$(distrobox list | sed 1d | awk -F'|' '{print $2}' | sed 's/^[ \t]*//;s/[ \t]*$//')}")
+if [[ -z containers ]]; then
+  _message -r "No containers exist."
+fi
+_describe -t containers 'available containers' containers
