@@ -1,7 +1,7 @@
 #autoload
 
 local -a containers
-containers=("${(@f)$(distrobox list | sed 1d | awk -F'|' '{print $2}' | sed 's/^[ \t]*//;s/[ \t]*$//')}")
+containers=("${(@)${(@)${(@)${(@f)$(distrobox list)}[2,-1]#*| }%% |*}%% *}")
 if [[ -z containers ]]; then
   _message -r "No containers exist."
 fi
